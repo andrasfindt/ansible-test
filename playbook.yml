@@ -2,8 +2,8 @@
   gather_facts: true # https://github.com/zzet/ansible-rbenv-role/issues/37
   become: true
   vars:
-    username: build
-    usergroup: staff
+    username: "{{ ansible_user_id }}"
+    usergroup: "{{ ansible_user_gid }}"
     git_install_from_source: false
     git_install_path: /usr/local
     rbenv:
