@@ -2,6 +2,8 @@
   gather_facts: true # https://github.com/zzet/ansible-rbenv-role/issues/37
   become: true
   vars:
+    username: build
+    usergroup: staff
     git_install_from_source: false
     git_install_path: /usr/local
     rbenv:
@@ -11,18 +13,20 @@
       rubies:
         - version: 2.6.5
           env:
-            RUBY_CONFIGURE_OPTS: "--enable-shared --with-jemalloc"
+            RUBY_CONFIGURE_OPTS: "--enable-shared"
     rbenv_extra_depends:
-      - libjemalloc1
-      - libjemalloc-dev
-
-  pre_tasks:
-    - name: Update apt cache.
-      apt: update_cache=true cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
+    #      - libjemalloc1
+    #      - libjemalloc-dev
+    homebrew_installed_packages:
+      - git
+    homebrew_user: "{{ username }}"
+    homebrew_group: "{{ usergroup }}"
   roles:
-    - role: geerlingguy.git
-    - role: zzet.rbenv
-      rbenv_users:
-        - slave
+    - role: andrasfindt.brew-zsh
+      become: no
+#    - role: zzet.rbenv
+#      become: no
+#      rbenv_users:
+#        - "{{ username }}"
+#      default_gems_file: gems
+#      rbenv_set_vars: true

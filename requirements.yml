@@ -1,6 +1,6 @@
 - src: git@github.com:zzet/ansible-rbenv-role.git
   scm: git
   name: zzet.rbenv
-- src: git@github.com:geerlingguy/ansible-role-git.git
+- src: git@github.com:andrasfindt/ansible-role-brew-zsh.git
   scm: git
-  name: geerlingguy.git
+  name: andrasfindt.brew-zsh
