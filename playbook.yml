@@ -1,4 +1,5 @@
-- hosts: bodhis
+---
+- hosts: local_vms
   gather_facts: true # https://github.com/zzet/ansible-rbenv-role/issues/37
   become: true
   vars:
@@ -6,27 +7,11 @@
     usergroup: staff
     git_install_from_source: false
     git_install_path: /usr/local
-    rbenv:
-      env: user
-      version: v0.4.0
-      default_ruby: 2.6.5
-      rubies:
-        - version: 2.6.5
-          env:
-            RUBY_CONFIGURE_OPTS: "--enable-shared"
-    rbenv_extra_depends:
-    #      - libjemalloc1
-    #      - libjemalloc-dev
     homebrew_installed_packages:
       - git
     homebrew_user: "{{ username }}"
     homebrew_group: "{{ usergroup }}"
+    powerlevel10k_use_default_config: true
   roles:
     - role: andrasfindt.brew-zsh
       become: no
-#    - role: zzet.rbenv
-#      become: no
-#      rbenv_users:
-#        - "{{ username }}"
-#      default_gems_file: gems
-#      rbenv_set_vars: true
